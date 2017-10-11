@@ -331,6 +331,23 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    // create var revisedFunc that applies trailing arguments to func
+    // call settimeout with function and wait parameter
+  
+    // original
+    // var args = Array.prototype.slice.call(arguments, 2);
+    // var revisedFunc = function() {
+    //   func.apply(this, args);
+    // };
+  
+    // setTimeout(revisedFunc, wait);
+    
+    // refactored
+    var args = Array.from(arguments);
+    setTimeout.apply(func, args);
+    
+    // setTimeout.apply(func, [func, wait, arg, arg]); *** WHY?! ***
+
   };
 
 
