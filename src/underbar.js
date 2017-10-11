@@ -105,9 +105,22 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
-    return _.filter(array, function(item, index) {
-      return (_.indexOf(array, item) === index);
-    });
+    if (iterator === undefined) {
+      return _.filter(array, function(item, index) {
+        return (_.indexOf(array, item) === index);
+      });
+    } else {
+      var booleanArray = _.map(array, function(item) {
+        return iterator(item);
+      });
+      var retArray = [];
+      _.each(booleanArray, function(item, index) {
+        if (_.indexOf(booleanArray, item) === index) {
+          retArray.push(array[index]);
+        }
+      });
+      return retArray;  
+    }
   };
 
 
